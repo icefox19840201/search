@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<form action="/search/ginfo/" method="get">
+    {% csrf_token %}
+    <span>搜索内容：</span><input type="text" id="keywords" name="keywords">
+    <input type="submit" value="搜索">
+</form>
+<div>
+{% for item in data %}
+    {{ item.goodsName }}
+{% endfor %}
+
+    <div id="pagination">
+        <ul id="pagination-flickr">
+        {% if data.has_previous %}
+        <li class="previous">
+            <a href="/search/ginfo/?page={{ data.previous_page_number }}">
+                上一页</a></li>
+        {% else %}
+        <li class="previous-off">上一页</li>
+        {% endif %}
+        <li class="active">
+            {{ data.number }}/{{ data.paginator.num_pages }}
+        </li>
+        {% if data.has_next %}
+        <li class="next">
+            <a href="/search/ginfo/?page={{ data.next_page_number }}">
+                下一页 &raquo;</a></li>
+        {% else %}
+        <li class="next-off">下一页 &raquo;</li>
+        {% endif %}    </ul>
+
+
+</div>
+</body>
+</html>
